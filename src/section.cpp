@@ -303,9 +303,10 @@ void calc_2dbz() {
 */
 void calc_section() {
   int i, j, ib, itri, ithread, n2d0;
-  std::vector<std::vector<std::vector<std::vector<GLfloat> > > > kv2d_v, clr2d_v;
+  std::vector<std::vector<std::vector<std::vector<GLfloat> > > > kv2d_v, clr2d_v, mat2d_v;
 
   kv2d_v.resize(nthreads);
+  mat2d_v.resize(nthreads);
   clr2d_v.resize(nthreads);
 
   if (fbz != 1)return;
@@ -314,23 +315,26 @@ void calc_section() {
   for (ib = 0; ib < nb; ib++) {
 
 #pragma omp parallel default(none) \
-shared(nb,ib,clr,clr2d_v,kvp,kv2d_v,ntri,secvec,secscale,axis2d,bvec,BZ_number) \
+shared(nb,ib,clr,clr2d_v,kvp,matp,kv2d_v,mat2d_v,ntri,secvec,secscale,axis2d,bvec,BZ_number) \
 private(itri,i,j,ithread)
     {
       int sw[3], a0, a1, a2, ia;
       GLfloat norm[3] = {}, a[3][3] = {}, kshift[3] = {}, kvp2[3][3] = {};
-      std::vector<std::vector<GLfloat> > kv2d_0, clr2d_0;
+      std::vector<std::vector<GLfloat> > kv2d_0, clr2d_0, mat2d_0;
 
       kv2d_0.resize(2);
       clr2d_0.resize(2);
+      mat2d_0.resize(2);
       for (i = 0; i < 2; i++) {
         kv2d_0.at(i).resize(3);
         clr2d_0.at(i).resize(4);
+        mat2d_0.at(i).resize(3);
       }
 
       ithread = get_thread();
       kv2d_v.at(ithread).resize(0);
       clr2d_v.at(ithread).resize(0);
+      mat2d_v.at(ithread).resize(0);
       for (a0 = -BZ_number[0] / 2; a0 < -BZ_number[0] / 2 + BZ_number[0]; a0++) {
         for (a1 = -BZ_number[1] / 2; a1 < -BZ_number[1] / 2 + BZ_number[1]; a1++) {
           for (a2 = -BZ_number[2] / 2; a2 < -BZ_number[2] / 2 + BZ_number[2]; a2++) {
@@ -358,6 +362,12 @@ private(itri,i,j,ithread)
                     = kvp2[sw[1]][i] * a[1][0] + kvp2[sw[0]][i] * a[0][1];
                   kv2d_0.at(1).at(i)
                     = kvp2[sw[2]][i] * a[2][0] + kvp2[sw[0]][i] * a[0][2];
+                  mat2d_0.at(0).at(i)
+                    = matp[ib][itri][sw[1]][i] * a[1][0]
+                    + matp[ib][itri][sw[0]][i] * a[0][1];
+                  mat2d_0.at(1).at(i)
+                    = matp[ib][itri][sw[2]][i] * a[2][0]
+                    + matp[ib][itri][sw[0]][i] * a[0][2];
                 }/*for (i = 0; i < 3; ++i)*/
                 for (i = 0; i < 4; ++i) {
                   clr2d_0.at(0).at(i)
@@ -371,6 +381,7 @@ private(itri,i,j,ithread)
                 proj_2d(axis2d, &kv2d_0.at(1).at(0));
                 kv2d_v.at(ithread).push_back(kv2d_0);
                 clr2d_v.at(ithread).push_back(clr2d_0);
+                mat2d_v.at(ithread).push_back(mat2d_0);
               }/*else if (norm[sw[0]] < 0.0 && 0.0 <= norm[sw[1]])*/
               else if ((norm[sw[1]] < 0.0 && 0.0 <= norm[sw[2]]) || (norm[sw[1]] <= 0.0 && 0.0 < norm[sw[2]])) {
                 for (i = 0; i < 3; ++i) {
@@ -378,6 +389,12 @@ private(itri,i,j,ithread)
                     = kvp2[sw[2]][i] * a[2][0] + kvp2[sw[0]][i] * a[0][2];
                   kv2d_0.at(1).at(i)
                     = kvp2[sw[2]][i] * a[2][1] + kvp2[sw[1]][i] * a[1][2];
+                  mat2d_0.at(0).at(i)
+                    = matp[ib][itri][sw[2]][i] * a[2][0]
+                    + matp[ib][itri][sw[0]][i] * a[0][2];
+                  mat2d_0.at(1).at(i)
+                    = matp[ib][itri][sw[2]][i] * a[2][1]
+                    + matp[ib][itri][sw[1]][i] * a[1][2];
                 }/*for (i = 0; i < 3; ++i)*/
                 for (i = 0; i < 4; ++i) {
                   clr2d_0.at(0).at(i)
@@ -391,6 +408,7 @@ private(itri,i,j,ithread)
                 proj_2d(axis2d, &kv2d_0.at(1).at(0));
                 kv2d_v.at(ithread).push_back(kv2d_0);
                 clr2d_v.at(ithread).push_back(clr2d_0);
+                mat2d_v.at(ithread).push_back(mat2d_0);
               }/*else if (norm[sw[1]] < 0.0 && 0.0 <= norm[sw[2]])*/
             }/*for (itri = 0; itri < ntri[ib]; ++itri)*/
           }//a2
@@ -408,6 +426,7 @@ private(itri,i,j,ithread)
     kv2d[ib] = new GLfloat[6 * n2d[ib]];
     kv2d_fat[ib] = new GLfloat[12 * n2d[ib]];
     clr2d[ib] = new GLfloat[16 * n2d[ib]];
+    mat2d[ib] = new GLfloat[6 * n2d[ib]];
 
     n2d0 = 0;
     for (ithread = 0; ithread < nthreads; ithread++) {
@@ -415,8 +434,7 @@ private(itri,i,j,ithread)
         for (i = 0; i < 2; i++) {
           for (j = 0; j < 3; j++) {
             kv2d[ib][j + i * 3 + 6 * n2d0] = kv2d_v.at(ithread).at(itri).at(i).at(j);
-          }
-          for (j = 0; j < 3; j++) {
+            mat2d[ib][j + i * 3 + 6 * n2d0] = mat2d_v.at(ithread).at(itri).at(i).at(j);
             clr2d[ib][j + i * 8 + 0 + 16 * n2d0] = clr2d_v.at(ithread).at(itri).at(i).at(j);
             clr2d[ib][j + i * 8 + 4 + 16 * n2d0] = clr2d_v.at(ithread).at(itri).at(i).at(j);
           }

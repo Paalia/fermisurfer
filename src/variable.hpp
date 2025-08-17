@@ -113,6 +113,7 @@ extern GLfloat secscale;          //!< 0.0 (across @f$\Gamma@f$) or 1.0
 extern GLfloat axis2d[2][3];      //!< @f$k@f$-vector to define section
 extern int *n2d;                  //!< Number of line segment
 extern GLfloat **kv2d;          //!< @f$k@f$-vector for 2D plot [::nb][::n2d*2*3]
+extern GLfloat** mat2d;          //!< Matrix element for 2D plot [::nb][::n2d*2*3]
 extern GLfloat** kv2d_fat;          //!< @f$k@f$-vector for 2D plot [::nb][::n2d*4*3]
 extern GLfloat **clr2d;         //!< Matrix element for 2D plot [::nb][::n2d*2*2*4]
 extern int nnbzl2d;             //!< number of 2D BZ line for each BZ

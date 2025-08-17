@@ -165,6 +165,7 @@ GLfloat axis2d[2][3];      //!< @f$k@f$-vector to define section
 int *n2d;                  //!< Number of line segment
 GLfloat **kv2d;          //!< @f$k@f$-vector for 2D plot [::nb][::n2d*2*3]
 GLfloat** kv2d_fat;          //!< @f$k@f$-vector for 2D plot [::nb][::n2d*4*3]
+GLfloat** mat2d;          //!< Matrix element for 2D plot [::nb][::n2d*2*3]
 GLfloat **clr2d;         //!< Matrix element for 2D plot [::nb][::n2d*2*2*4]
 int nnbzl2d;             //!< number of 2D BZ line for each BZ
 int *nbzl2d;                //!< The number of Lines of 1st Brillouin zone
@@ -320,6 +321,7 @@ bool MyApp::OnInit()
   kv2d = new GLfloat * [nb];
   kv2d_fat = new GLfloat * [nb];
   clr2d = new GLfloat * [nb];
+  mat2d = new GLfloat * [nb];
   kveq = new GLfloat *** [nb];
   kveq_rot = new GLfloat *[nb];
   /**/

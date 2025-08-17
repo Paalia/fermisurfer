@@ -189,9 +189,12 @@ void MyFrame::button_section(
     if (draw_band[ib] == 1) {
       for (i2d = 0; i2d < n2d[ib]; i2d++) {
         for (i = 0; i < 2; i++) {
-          fprintf(fp, "%15.5e %15.5e\n",
-            kv2d[ib][i * 3 + 6 * i2d], 
-            kv2d[ib][1 + i * 3 + 6 * i2d]);
+          fprintf(fp, "%15.5e %15.5e %15.5e %15.5e %15.5e\n",
+            kv2d[ib][0 + i * 3 + 6 * i2d], 
+            kv2d[ib][1 + i * 3 + 6 * i2d],
+           mat2d[ib][0 + i * 3 + 6 * i2d],
+           mat2d[ib][1 + i * 3 + 6 * i2d],
+           mat2d[ib][2 + i * 3 + 6 * i2d]);
         }
         fprintf(fp, "\n");
       }

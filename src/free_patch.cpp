@@ -49,7 +49,7 @@ THE SOFTWARE.
  @brief Free variables for patch before new patch is computed
 
  Free : ::nmlp, ::matp, ::clr, ::kvp, ::nmlp_rot, ::kvp_rot,
-        ::kvnl, ::kvnl_rot, ::kv2d, ::clr2d
+        ::kvnl, ::kvnl_rot, ::kv2d, ::clr2d, ::mat2d
 */
 void free_patch()
 {
@@ -104,6 +104,7 @@ void free_patch()
       delete[] kv2d[ib];
       delete[] kv2d_fat[ib];
       delete[] clr2d[ib];
+      delete[] mat2d[ib];
     }/*for (ib = 0; ib < nb; ++ib)*/
     for (i0 = 0; i0 < nnbzl2d; i0++) {
       for (i1 = 0; i1 < 26; i1++) {
