@@ -181,7 +181,7 @@ int read_file()
    Reciplocal lattice vectors
   */
   for (i = 0; i < 3; ++i) {
-    ierr = fscanf(fp, "%e%e%e", &bvec[i][0], &bvec[i][1], &bvec[i][2]);
+    ierr = fscanf(fp, "%le%le%le", &bvec[i][0], &bvec[i][1], &bvec[i][2]);
     if (ierr == 0) *terminal << wxT("error ! reading bvec\n");
     *terminal << wxString::Format(wxT("    bvec %d : %f %f %f \n"), i + 1, bvec[i][0], bvec[i][1], bvec[i][2]);
   }/*for (i = 0; i < 3; ++i)*/
@@ -463,7 +463,7 @@ void read_bxsf()
   cerr = fgets(ctmp, 256, fp);
   for (ii = 0; ii < 3; ++ii) {
     cerr = fgets(ctmp, 256, fp);
-    ierr = sscanf(ctmp, "%e%e%e", &bvec[ii][0], &bvec[ii][1], &bvec[ii][2]);
+    ierr = sscanf(ctmp, "%le%le%le", &bvec[ii][0], &bvec[ii][1], &bvec[ii][2]);
     *terminal << wxString::Format(wxT("  Bvec %d : %f %f %f\n"), 
       ii, bvec[ii][0], bvec[ii][1], bvec[ii][2]);
   }

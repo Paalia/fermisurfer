@@ -45,8 +45,8 @@ THE SOFTWARE.
 extern int ng0[3];         //!< @f$k@f$-point grid in the input file
 extern int shiftk[3];      //!< Wherether @f$k@f$-grid is shifted or not
 extern int nb;             //!< The number of Bands
-extern GLfloat avec[3][3]; //!< Direct lattice vector
-extern GLfloat bvec[3][3]; //!< Reciprocal lattice vector
+extern double avec[3][3]; //!< Direct lattice vector
+extern double bvec[3][3]; //!< Reciprocal lattice vector
 extern GLfloat ****eig0;   //!< Eigenvalues @f$\varepsilon_{n k}@f$[::nb][::ng0[0]][::ng0[1]][::ng0[2]]
 extern GLfloat *****mat0;   //!< Matrix element [::nb][::ng0[0]][::ng0[1]][::ng0[2]][3]
 /*
@@ -73,10 +73,10 @@ extern int BZ_number[3];   //!< Number of BZ
  Variables for Brillouin zone boundaries
 */
 extern int nbzl;               //!< The number of Lines of 1st Brillouin zone
-extern GLfloat bzl[676][2][3]; //!< Lines of 1st BZ [nbzl(max:26*26=676)][2][3]
-extern GLfloat bragg[26][3];   //!< Bragg plane vectors
-extern GLfloat brnrm[26];      //!< Norms of Bragg plane vectors
-extern GLfloat brnrm_min;     //!< Minimum scale of the reciplocal space
+extern double bzl[676][2][3]; //!< Lines of 1st BZ [nbzl(max:26*26=676)][2][3]
+extern double bragg[26][3];   //!< Bragg plane vectors
+extern double brnrm[26];      //!< Norms of Bragg plane vectors
+extern double brnrm_min;     //!< Minimum scale of the reciplocal space
 extern int nbragg;             //!< Number of Bragg plane og 1st BZ
 /*
  Variables for patchs

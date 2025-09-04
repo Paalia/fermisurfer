@@ -107,8 +107,8 @@ static void set2daxis(
 */
 int bragg_vert2d(
   int nbragg,
-  GLfloat bragg[26][3],
-  GLfloat brnrm[26],
+  double bragg[26][3],
+  double brnrm[26],
   GLfloat secvec[3],
   GLfloat secscale,
   int jbr, //!< [in] Index of a Bragg plane
@@ -119,7 +119,7 @@ int bragg_vert2d(
 )
 {
   int kbr, i, lbr, nbr0;
-  GLfloat bmat[3][3] = {}, rhs[3] = {}, prod, thr, det;
+  double bmat[3][3] = {}, rhs[3] = {}, prod, thr, det;
   //
   nbr0 = nbr;
   //

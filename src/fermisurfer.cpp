@@ -96,8 +96,8 @@ IMPLEMENT_APP(MyApp)
 int ng0[3];         //!< @f$k@f$-point grid in the input file
 int shiftk[3];      //!< Wherether @f$k@f$-grid is shifted or not
 int nb;             //!< The number of Bands
-GLfloat avec[3][3]; //!< Direct lattice vector
-GLfloat bvec[3][3]; //!< Reciprocal lattice vector
+double avec[3][3]; //!< Direct lattice vector
+double bvec[3][3]; //!< Reciprocal lattice vector
 GLfloat ****eig0;   //!< Eigenvalues @f$\varepsilon_{n k}@f$[::nb][::ng0[0]][::ng0[1]][::ng0[2]]
 GLfloat *****mat0;   //!< Matrix element [::nb][::ng0[0]][::ng0[1]][::ng0[2]][3]
 /*
@@ -124,10 +124,10 @@ int BZ_number[3] = { 1, 1, 1 };
  Variables for Brillouin zone boundaries
 */
 int nbzl;               //!< The number of Lines of 1st Brillouin zone
-GLfloat bzl[676][2][3]; //!< Lines of 1st BZ [nbzl(max:26*26=676)][2][3]
-GLfloat bragg[26][3];   //!< Bragg plane vectors
-GLfloat brnrm[26];      //!< Norms of Bragg plane vectors
-GLfloat brnrm_min;     //!< Minimum scale of the reciplocal space
+double bzl[676][2][3]; //!< Lines of 1st BZ [nbzl(max:26*26=676)][2][3]
+double bragg[26][3];   //!< Bragg plane vectors
+double brnrm[26];      //!< Norms of Bragg plane vectors
+double brnrm_min;     //!< Minimum scale of the reciplocal space
 int nbragg;             //!< Number of Bragg plane og 1st BZ
 /*
  Variables for patchs

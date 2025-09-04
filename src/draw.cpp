@@ -346,8 +346,8 @@ static void draw_bz_lines(
   GLfloat rot2[3][3]
 ) {
   int ibzl, i, j, a0, a1, a2, ia;
-  GLfloat bzl2[3] = {}, bvec2[3][3] = {}, linecolor[4] = {}, secvec2[3] = {}, kshift[3] = {}, arrow_c[3] = {};
-  GLfloat vertices[300] = {}, sphere_v2[1140] = {}/*190*2*3*/, rect[600], trans2[3] = {};
+  double bzl2[3] = {}, bvec2[3][3] = {}, kshift[3] = {}, arrow_c[3] = {};
+  GLfloat vertices[300] = {}, sphere_v2[1140] = {}/*190*2*3*/, rect[600], trans2[3] = {}, linecolor[4] = {}, secvec2[3] = {};
 
   trans2[0] = trans_x;
   trans2[1] = trans_y;
@@ -372,7 +372,7 @@ static void draw_bz_lines(
                         + scl * rot2[j][1] * (bzl[ibzl][i][1] + kshift[1])
                         + scl * rot2[j][2] * (bzl[ibzl][i][2] + kshift[2])
                         + trans2[j];
-              for (j = 0; j < 3; j++) vertices[j + 3 * i] = bzl2[j];
+              for (j = 0; j < 3; j++) vertices[j + 3 * i] = (GLfloat)bzl2[j];
             }/*for (i = 0; i< 2; ++i)*/
             line2rect(linewidth * 0.01, vertices, rect);
             glColor3fv(linecolor);
@@ -470,7 +470,7 @@ static void draw_bz_lines(
                   + scl * rot2[j][1] * bzl2d[i][ibzl][1]
                   + scl * rot2[j][2] * bzl2d[i][ibzl][2]
                   + trans2[j];
-        for (j = 0; j < 3; j++)vertices[j + 3 * ibzl] = bzl2[j];
+        for (j = 0; j < 3; j++)vertices[j + 3 * ibzl] = (GLfloat)bzl2[j];
       }/*for (ibzl = 0; ibzl < nbzl2d; ++ibzl)*/
       glColor3fv(SectionColor);
       glNormal3fv(secvec2);

@@ -204,7 +204,8 @@ void init_corner()
 void bragg_vector()
 {
   int i0, i1, i2, i, ibr, sw[4];
-  float ldiag[4], bdiag[4][3];
+  float ldiag[4];
+  double bdiag[4][3];
   /**/
   ibr = 0;
   /**/
@@ -219,9 +220,9 @@ void bragg_vector()
          Fractional -> Cartecian
         */
         for (i = 0; i < 3; ++i)
-          bragg[ibr][i] = ((GLfloat)i0 * bvec[0][i]
-                        +  (GLfloat)i1 * bvec[1][i]
-                        +  (GLfloat)i2 * bvec[2][i]) * 0.5f;
+          bragg[ibr][i] = ((double)i0 * bvec[0][i]
+                        +  (double)i1 * bvec[1][i]
+                        +  (double)i2 * bvec[2][i]) * 0.5f;
         /*
          And its norm
         */
@@ -245,13 +246,13 @@ void bragg_vector()
   // Serch shortest diagonal line
   //
   for (i = 0; i < 3; i++) {
-    bdiag[0][i] =  bvec[0][i] / (float)ng0[0] + bvec[1][i] / (float)ng0[1] + bvec[2][i] / (float)ng0[2];
-    bdiag[1][i] =  bvec[0][i] / (float)ng0[0] + bvec[1][i] / (float)ng0[1] - bvec[2][i] / (float)ng0[2];
-    bdiag[2][i] =  bvec[0][i] / (float)ng0[0] - bvec[1][i] / (float)ng0[1] + bvec[2][i] / (float)ng0[2];
-    bdiag[3][i] = -bvec[0][i] / (float)ng0[0] + bvec[1][i] / (float)ng0[1] + bvec[2][i] / (float)ng0[2];
+    bdiag[0][i] =  bvec[0][i] / (double)ng0[0] + bvec[1][i] / (double)ng0[1] + bvec[2][i] / (double)ng0[2];
+    bdiag[1][i] =  bvec[0][i] / (double)ng0[0] + bvec[1][i] / (double)ng0[1] - bvec[2][i] / (double)ng0[2];
+    bdiag[2][i] =  bvec[0][i] / (double)ng0[0] - bvec[1][i] / (double)ng0[1] + bvec[2][i] / (double)ng0[2];
+    bdiag[3][i] = -bvec[0][i] / (double)ng0[0] + bvec[1][i] / (double)ng0[1] + bvec[2][i] / (double)ng0[2];
   }
   for (i = 0; i < 4; i++)
-    ldiag[i] = bdiag[i][0] * bdiag[i][0] + bdiag[i][1] * bdiag[i][1] + bdiag[i][2] * bdiag[i][2];
+    ldiag[i] = (double)(bdiag[i][0] * bdiag[i][0] + bdiag[i][1] * bdiag[i][1] + bdiag[i][2] * bdiag[i][2]);
   eigsort(4, ldiag, sw);
   itet = sw[0];
 }/* bragg_vector */

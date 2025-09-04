@@ -31,7 +31,7 @@ THE SOFTWARE.
 #endif
 
 int modulo(int i, int n);
-GLfloat solve3(GLfloat a[3][3], GLfloat b[3]);
+double solve3(double a[3][3], double b[3]);
 void eigsort(int n, GLfloat *key, int *swap);
 void normal_vec(GLfloat in1[3], GLfloat in2[3], GLfloat in3[3], GLfloat out[3]);
 int get_thread();

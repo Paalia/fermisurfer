@@ -55,13 +55,13 @@ int modulo(
  @brief Solve linear system
  @return Determinant
 */
-GLfloat solve3(
-  GLfloat a[3][3], //!< [in] Matix
-  GLfloat b[3] //!< [in,out] Right hand side vector
+double solve3(
+  double a[3][3], //!< [in] Matix
+  double b[3] //!< [in,out] Right hand side vector
 )
 {
   int i;
-  GLfloat det, c[3] = {};
+  double det, c[3] = {};
   /**/
   det = a[0][0] * (a[1][1] * a[2][2] - a[1][2] * a[2][1])
       + a[0][1] * (a[1][2] * a[2][0] - a[1][0] * a[2][2])

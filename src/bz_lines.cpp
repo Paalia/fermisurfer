@@ -43,17 +43,17 @@ THE SOFTWARE.
  @brief Judge wheser this line is the edge of 1st BZ
 */
 static int bragg_vert(
-  GLfloat bragg[26][3],
-  GLfloat brnrm[26],
+  double bragg[26][3],
+  double brnrm[26],
   int ibr, //!< [in] Index of a Bragg plane
   int jbr, //!< [in] Index of a Bragg plane
   int nbr, //!< [in]
-  GLfloat vert[3], //!< [in] start point of line
-  GLfloat vert2[3] //!< [in] end point of line
+  double vert[3], //!< [in] start point of line
+  double vert2[3] //!< [in] end point of line
 )
 {
   int kbr, i, lbr, nbr0;
-  GLfloat bmat[3][3] ={}, rhs[3] ={}, prod, thr, det;
+  double bmat[3][3] ={}, rhs[3] ={}, prod, thr, det;
   /**/
   nbr0 = nbr;
   /**/
@@ -112,7 +112,7 @@ static void check_bragg()
 {
   int ibr, ibzl, ibzc;
   int ii, kk, bzflag, nbzcorner, nn;
-  GLfloat thr = (GLfloat)0.00001, prod, bzc[676][3] = {};
+  double thr = 1.0e-7, prod, bzc[676][3] = {};
   /*
   First, compute real number of corners of 1st BZ
   */
@@ -123,12 +123,13 @@ static void check_bragg()
       
       for (ibzc = 0; ibzc < nbzcorner; ibzc++) {
         prod = 0.0f;
-        for (kk = 0; kk < 3; kk++) prod += (bzl[ibzl][ii][kk] - bzc[ibzc][kk]) * (bzl[ibzl][ii][kk] - bzc[ibzc][kk]);
+        for (kk = 0; kk < 3; kk++) prod += ((double)bzl[ibzl][ii][kk] - bzc[ibzc][kk])
+                                         * ((double)bzl[ibzl][ii][kk] - bzc[ibzc][kk]);
         if (prod < thr) bzflag = 1;
       }
 
       if (bzflag == 0) {
-        for (kk = 0; kk < 3; kk++) bzc[nbzcorner][kk] = bzl[ibzl][ii][kk];
+        for (kk = 0; kk < 3; kk++) bzc[nbzcorner][kk] = (double)bzl[ibzl][ii][kk];
         nbzcorner += 1;
       }
 
@@ -144,8 +145,10 @@ static void check_bragg()
     nn = 0;
 
     for (ibzc = 0; ibzc < nbzcorner; ibzc++) {
-      prod = bragg[ibr][0] * bzc[ibzc][0] + bragg[ibr][1] * bzc[ibzc][1] + bragg[ibr][2] * bzc[ibzc][2];
-      if (fabsf(prod - brnrm[ibr]) < thr) nn += 1;
+      prod = (double)bragg[ibr][0] * bzc[ibzc][0]
+           + (double)bragg[ibr][1] * bzc[ibzc][1] 
+           + (double)bragg[ibr][2] * bzc[ibzc][2];
+      if (fabsf(prod - (double)brnrm[ibr]) < thr) nn += 1;
     }
     if (nn >= 3) {
       for (kk = 0; kk < 3; kk++) bragg[nbragg][kk] = bragg[ibr][kk];
@@ -164,7 +167,7 @@ void bz_lines()
 {
   /**/
   int ibr, jbr, nbr, i, j, lvert;
-  GLfloat vert[2][3] = {};
+  double vert[2][3] = {};
   /**/
   nbzl = 0;
   /**/
