@@ -126,5 +126,5 @@ private:
   void textctrl_VectorField(wxCommandEvent& event);
   //wxDECLARE_EVENT_TABLE();
 };
-
+void write_sectionfile();
 #endif // FERMISURFER_MENU_H

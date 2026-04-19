@@ -143,6 +143,7 @@ extern GLfloat thetay;    //!< Rotation angle
 extern GLfloat thetaz;    //!< Rotation angle
 extern GLfloat linewidth; //!< BZ/nodal-line/Fermiline width
 extern int lperspective;  //!< Switch for perspective projection
+extern int lsectionfile;  //!< Switch for batch mode to print section file
 /*
  Colors
 */

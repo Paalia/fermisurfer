@@ -196,6 +196,7 @@ GLfloat thetay = 0.0;    //!< Rotation angle
 GLfloat thetaz = 0.0;    //!< Rotation angle
 GLfloat linewidth = 1.0; //!< BZ/nodal-line/Fermiline width
 int lperspective = 1;
+int lsectionfile = 0;
 /*
  Colors
 */
@@ -361,6 +362,9 @@ bool MyApp::OnInit()
   //
   if (lbatch == 1) {
     batch_draw();
+    if (lsectionfile) {
+      write_sectionfile();
+    }
   }
   return true;
 } /* main */

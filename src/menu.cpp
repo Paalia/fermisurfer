@@ -179,22 +179,20 @@ void MyFrame::button_compute(
   compute_patch_segment();
   Refresh(false);
 }
-void MyFrame::button_section(
-  wxCommandEvent& event//!<[in] Selected menu
-) {
+void write_sectionfile() {
   int ib, i2d, i;
-  FILE *fp;
+  FILE* fp;
   fp = fopen("fermi_line.dat", "w");
   for (ib = 0; ib < nb; ib++) {
     if (draw_band[ib] == 1) {
       for (i2d = 0; i2d < n2d[ib]; i2d++) {
         for (i = 0; i < 2; i++) {
           fprintf(fp, "%15.5e %15.5e %15.5e %15.5e %15.5e\n",
-            kv2d[ib][0 + i * 3 + 6 * i2d], 
+            kv2d[ib][0 + i * 3 + 6 * i2d],
             kv2d[ib][1 + i * 3 + 6 * i2d],
-           mat2d[ib][0 + i * 3 + 6 * i2d],
-           mat2d[ib][1 + i * 3 + 6 * i2d],
-           mat2d[ib][2 + i * 3 + 6 * i2d]);
+            mat2d[ib][0 + i * 3 + 6 * i2d],
+            mat2d[ib][1 + i * 3 + 6 * i2d],
+            mat2d[ib][2 + i * 3 + 6 * i2d]);
         }
         fprintf(fp, "\n");
       }
@@ -216,6 +214,11 @@ void MyFrame::button_section(
   }
   fclose(fp);
   *terminal << wxT("  bz_line.dat was written.\n");
+}
+void MyFrame::button_section(
+  wxCommandEvent& event//!<[in] Selected menu
+) {
+  write_sectionfile();
 }
 /**
 @brief Change arrow (::blackback)

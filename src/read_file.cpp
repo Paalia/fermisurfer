@@ -396,6 +396,9 @@ void read_batch()
     else if (strcmp(keyword, "perspective") == 0) {
       ierr = fscanf(fp, "%d", &lperspective);
     }
+    else if (strcmp(keyword, "sectionfile") == 0) {
+      ierr = fscanf(fp, "%d", &lsectionfile);
+    }
     else {
       printf("Error! %s", keyword);
       exit(-1);
